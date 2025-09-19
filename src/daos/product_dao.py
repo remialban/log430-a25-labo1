@@ -6,7 +6,7 @@ Auteurs : Gabriel C. Ullmann, Fabio Petrillo, 2025
 import os
 from dotenv import load_dotenv
 import mysql.connector
-from models.user import User
+from models.product import Product
 
 class ProductDAO:
     def __init__(self):
@@ -28,15 +28,15 @@ class ProductDAO:
     def select_all(self):
         """ Select all products from MySQL """
         # return select all 
-        self.cursor.execute("SELECT id, name, price FROM products")
+        self.cursor.execute("SELECT id, name, brand, price FROM products")
         rows = self.cursor.fetchall()
         return [Product(*row) for row in rows]
 
     def insert(self, product):
         """ Insert given product into MySQL """
         self.cursor.execute(
-            "INSERT INTO products (name, price) VALUES (%s, %s)",
-            (product.name, product.price)
+            "INSERT INTO products (name, brand, price) VALUES (%s, %s, %s)",
+            (product.name, product.brand, product.price)
         )
         self.conn.commit()
         return self.cursor.lastrowid
@@ -44,8 +44,8 @@ class ProductDAO:
     def update(self, product):
         """ Update given product in MySQL """
         self.cursor.execute(
-            "UPDATE products SET name = %s, price = %s WHERE id = %s",
-            (product.name, product.price, product.id)
+            "UPDATE products SET name = %s, brand = %s, price = %s WHERE id = %s",
+            (product.name, product.brand, product.price, product.id)
         )
         self.conn.commit()
 
