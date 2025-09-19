@@ -27,24 +27,41 @@ class ProductDAO:
 
     def select_all(self):
         """ Select all products from MySQL """
-        pass
+        # return select all 
+        self.cursor.execute("SELECT id, name, price FROM products")
+        rows = self.cursor.fetchall()
+        return [Product(*row) for row in rows]
 
     def insert(self, product):
         """ Insert given product into MySQL """
-        pass
+        self.cursor.execute(
+            "INSERT INTO products (name, price) VALUES (%s, %s)",
+            (product.name, product.price)
+        )
+        self.conn.commit()
+        return self.cursor.lastrowid
 
     def update(self, product):
         """ Update given product in MySQL """
-        pass
+        self.cursor.execute(
+            "UPDATE products SET name = %s, price = %s WHERE id = %s",
+            (product.name, product.price, product.id)
+        )
+        self.conn.commit()
 
     def delete(self, product_id):
         """ Delete product from MySQL with given product ID """
-        pass
+        self.cursor.execute(
+            "DELETE FROM products WHERE id = %s",
+            (product_id,)
+        )
+        self.conn.commit()
 
     def delete_all(self): #optional
         """ Empty products table in MySQL """
-        pass
-        
+        self.cursor.execute("DELETE FROM products")
+        self.conn.commit()
+
     def close(self):
         self.cursor.close()
         self.conn.close()
