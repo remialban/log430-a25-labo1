@@ -39,7 +39,7 @@ class UserDAOMongo:
     def update(self, user):
         self.collection.update_one(
             {
-                "_id": user.id
+                "_id": ObjectId(user.id)
             },
             {
                 "$set": {
