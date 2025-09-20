@@ -37,8 +37,7 @@ jobs:
           done
       - name: Lancer les tests
         run: |
-          cd src
-          python3 -m pytest
+          docker compose exec store_manager_app bash -c "cd /app/src && python3 -m pytest"
 
       - name: Arrêter les conteneurs dockers
         run: |
