@@ -10,11 +10,6 @@ jobs:
       - name: Checkout dépot
         uses: actions/checkout@v3
 
-      - name: Installer Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.13'
-
       - name: Creer fichier .env
         run: |
           echo "MYSQL_HOST=log430-a25-labo1-mysql-1" >> .env
