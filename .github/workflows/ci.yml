@@ -28,10 +28,16 @@ jobs:
           pip install -r requirements.txt
           pip install pytest
 
+      - name: Lancement des conteneurs dockers
+        run: |
+          docker build -t labo1-store-manager .
+          docker compose up -d
       - name: Lancer les tests
         run: |
           cd src
           python3 -m pytest
 
-
+      - name: Arrêter les conteneurs dockers
+        run: |
+          docker compose down
 
