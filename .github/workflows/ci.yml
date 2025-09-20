@@ -30,7 +30,7 @@ jobs:
 
       - name: Lancer les tests
         run: |
-          cd pytest
+          cd src
           python3 -m pytest
 
 
