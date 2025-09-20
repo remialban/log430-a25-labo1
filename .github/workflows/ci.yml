@@ -33,6 +33,13 @@ jobs:
         run: |
           docker build -t labo1-store-manager .
           docker compose up -d
+          for i in {1..50}; do
+            if mysqladmin ping -h127.0.0.1 -uroot -proot --silent; then
+              break
+            fi
+            echo "Attente que MySQL soit prêt..."
+            sleep 2
+          done
       - name: Lancer les tests
         run: |
           cd src
